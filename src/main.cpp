@@ -25,6 +25,7 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QTextStream>
+#include <iostream>
 #include "global.h"
 #ifndef HEADLESS
 # include <QApplication>
@@ -99,7 +100,7 @@ int main ( int argc, char** argv )
                                "--server" ) )
         {
             bIsClient = false;
-            qInfo() << "- server mode chosen";
+            cout << "- server mode chosen" << std::endl;
             CommandLineOptions << "--server";
             continue;
         }
@@ -112,7 +113,7 @@ int main ( int argc, char** argv )
                                "--nogui" ) )
         {
             bUseGUI = false;
-            qInfo() << "- no GUI mode chosen";
+            cout << "- no GUI mode chosen" << std::endl;
             CommandLineOptions << "--nogui";
             continue;
         }
@@ -126,7 +127,7 @@ int main ( int argc, char** argv )
         {
             // right now only the creative commons licence is supported
             eLicenceType = LT_CREATIVECOMMONS;
-            qInfo() << "- licence required";
+            cout << "- licence required" << std::endl;
             CommandLineOptions << "--licence";
             continue;
         }
@@ -139,7 +140,7 @@ int main ( int argc, char** argv )
                                "--fastupdate" ) )
         {
             bUseDoubleSystemFrameSize = false; // 64 samples frame size
-            qInfo() << "- using " << SYSTEM_FRAME_SIZE_SAMPLES << " samples frame size mode";
+            cout << "- using " << SYSTEM_FRAME_SIZE_SAMPLES << " samples frame size mode" << std::endl;
             CommandLineOptions << "--fastupdate";
             continue;
         }
@@ -152,7 +153,7 @@ int main ( int argc, char** argv )
                                "--multithreading" ) )
         {
             bUseMultithreading = true;
-            qInfo() << "- using multithreading";
+            cout << "- using multithreading" << std::endl;
             CommandLineOptions << "--multithreading";
             continue;
         }
@@ -169,7 +170,7 @@ int main ( int argc, char** argv )
                                   rDbleArgument ) )
         {
             iNumServerChannels = static_cast<int> ( rDbleArgument );
-            qInfo() << "- maximum number of channels: " << iNumServerChannels;
+            cout << "- maximum number of channels: " << iNumServerChannels << std::endl;
             CommandLineOptions << "--numchannels";
             continue;
         }
@@ -182,7 +183,7 @@ int main ( int argc, char** argv )
                                "--startminimized" ) )
         {
             bStartMinimized = true;
-            qInfo() << "- start minimized enabled";
+            cout << "- start minimized enabled" << std::endl;
             CommandLineOptions << "--startminimized";
             continue;
         }
@@ -195,7 +196,7 @@ int main ( int argc, char** argv )
                                "--discononquit" ) )
         {
             bDisconnectAllClientsOnQuit = true;
-            qInfo() << "- disconnect all clients on quit";
+            cout << "- disconnect all clients on quit" << std::endl;
             CommandLineOptions << "--discononquit";
             continue;
         }
@@ -208,7 +209,7 @@ int main ( int argc, char** argv )
                                "--nojackconnect" ) )
         {
             bNoAutoJackConnect = true;
-            qInfo() << "- disable auto Jack connections";
+            cout << "- disable auto Jack connections" << std::endl;
             CommandLineOptions << "--nojackconnect";
             continue;
         }
@@ -221,7 +222,7 @@ int main ( int argc, char** argv )
                                "--notranslation" ) )
         {
             bUseTranslation = false;
-            qInfo() << "- translations disabled";
+            cout << "- translations disabled" << std::endl;
             CommandLineOptions << "--notranslation";
             continue;
         }
@@ -237,7 +238,7 @@ int main ( int argc, char** argv )
                                "--showallservers" ) )
         {
             bShowComplRegConnList = true;
-            qInfo() << "- show all registered servers in server list";
+            cout << "- show all registered servers in server list" << std::endl;
             CommandLineOptions << "--showallservers";
             continue;
         }
@@ -252,7 +253,7 @@ int main ( int argc, char** argv )
                                "--showanalyzerconsole" ) )
         {
             bShowAnalyzerConsole = true;
-            qInfo() << "- show analyzer console";
+            cout << "- show analyzer console" << std::endl;
             CommandLineOptions << "--showanalyzerconsole";
             continue;
         }
@@ -267,7 +268,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strMIDISetup = strArgument;
-            qInfo() << "- MIDI controller settings: " << strMIDISetup;
+            cout << "- MIDI controller settings: " << strMIDISetup.toStdString() << std::endl;
             CommandLineOptions << "--ctrlmidich";
             continue;
         }
@@ -282,7 +283,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strLoggingFileName = strArgument;
-            qInfo() << "- logging file name: " << strLoggingFileName;
+            cout << "- logging file name: " << strLoggingFileName.toStdString() << std::endl;
             CommandLineOptions << "--log";
             continue;
         }
@@ -300,7 +301,7 @@ int main ( int argc, char** argv )
         {
             iPortNumber            = static_cast<quint16> ( rDbleArgument );
             bCustomPortNumberGiven = true;
-            qInfo() << "- selected port number: " << iPortNumber;
+            cout << "- selected port number: " << iPortNumber << std::endl;
             CommandLineOptions << "--port";
             continue;
         }
@@ -315,7 +316,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strHTMLStatusFileName = strArgument;
-            qInfo() << "- HTML status file name: " << strHTMLStatusFileName;
+            cout << "- HTML status file name: " << strHTMLStatusFileName.toStdString() << std::endl;
             CommandLineOptions << "--htmlstatus";
             continue;
         }
@@ -330,7 +331,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strClientName = strArgument;
-            qInfo() << "- client name: " << strClientName;
+            cout << "- client name: " << strClientName.toStdString() << std::endl;
             CommandLineOptions << "--clientname";
             continue;
         }
@@ -345,7 +346,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strRecordingDirName = strArgument;
-            qInfo() << "- recording directory name: " << strRecordingDirName;
+            cout << "- recording directory name: " << strRecordingDirName.toStdString() << std::endl;
             CommandLineOptions << "--recording";
             continue;
         }
@@ -358,7 +359,7 @@ int main ( int argc, char** argv )
                                "--norecord" ) )
         {
             bDisableRecording = true;
-            qInfo() << "- recording will not be enabled";
+            cout << "- recording will not be enabled" << std::endl;
             CommandLineOptions << "--norecord";
             continue;
         }
@@ -373,7 +374,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strCentralServer = strArgument;
-            qInfo() << "- central server: " << strCentralServer;
+            cout << "- central server: " << strCentralServer.toStdString() << std::endl;
             CommandLineOptions << "--centralserver";
             continue;
         }
@@ -388,7 +389,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strServerInfo = strArgument;
-            qInfo() << "- server info: " << strServerInfo;
+            cout << "- server info: " << strServerInfo.toStdString() << std::endl;
             CommandLineOptions << "--serverinfo";
             continue;
         }
@@ -403,7 +404,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strServerListFilter = strArgument;
-            qInfo() << "- server list filter: " << strServerListFilter;
+            cout << "- server list filter: " << strServerListFilter.toStdString() << std::endl;
             CommandLineOptions << "--listfilter";
             continue;
         }
@@ -418,7 +419,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strWelcomeMessage = strArgument;
-            qInfo() << "- welcome message: " << strWelcomeMessage;
+            cout << "- welcome message: " << strWelcomeMessage.toStdString() << std::endl;
             CommandLineOptions << "--welcomemessage";
             continue;
         }
@@ -433,7 +434,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strIniFileName = strArgument;
-            qInfo() << "- initialization file name: " << strIniFileName;
+            cout << "- initialization file name: " << strIniFileName.toStdString() << std::endl;
             CommandLineOptions << "--inifile";
             continue;
         }
@@ -448,7 +449,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strConnOnStartupAddress = NetworkUtil::FixAddress ( strArgument );
-            qInfo() << "- connect on startup to address: " << strConnOnStartupAddress;
+            cout << "- connect on startup to address: " << strConnOnStartupAddress.toStdString() << std::endl;
             CommandLineOptions << "--connect";
             continue;
         }
@@ -461,7 +462,7 @@ int main ( int argc, char** argv )
                                "--mutestream" ) )
         {
             bMuteStream = true;
-            qInfo() << "- mute stream activated";
+            cout << "- mute stream activated" << std::endl;
             CommandLineOptions << "--mutestream";
             continue;
         }
@@ -474,7 +475,7 @@ int main ( int argc, char** argv )
                                "--mutemyown" ) )
         {
             bMuteMeInPersonalMix = true;
-            qInfo() << "- mute me in my personal mix";
+            cout << "- mute me in my personal mix" << std::endl;
             CommandLineOptions << "--mutemyown";
             continue;
         }
@@ -484,7 +485,7 @@ int main ( int argc, char** argv )
         if ( ( !strcmp ( argv[i], "--version" ) ) ||
              ( !strcmp ( argv[i], "-v" ) ) )
         {
-            qInfo() << GetVersionAndNameStr ( false );
+            cout << GetVersionAndNameStr ( false ).toStdString() << std::endl;
             exit ( 1 );
         }
 
@@ -495,15 +496,14 @@ int main ( int argc, char** argv )
              ( !strcmp ( argv[i], "-?" ) ) )
         {
             const QString strHelp = UsageArguments ( argv );
-            qInfo() << strHelp;
+            cout << strHelp.toStdString() << std::endl;
             exit ( 1 );
         }
 
 
         // Unknown option ------------------------------------------------------
-        qInfo() << argv[0] << ": ";
-        qInfo() << "Unknown option '" <<
-            argv[i] << "' -- use '--help' for help";
+        cerr << argv[0] << ": ";
+        cerr << "Unknown option '" << argv[i] << "' -- use '--help' for help" << std::endl;
 
 // clicking on the Mac application bundle, the actual application
 // is called with weird command line args -> do not exit on these
@@ -518,7 +518,7 @@ int main ( int argc, char** argv )
     if ( bUseGUI )
     {
         bUseGUI = false;
-        qInfo() << "No GUI support compiled. Running in headless mode.";
+        cout << "No GUI support compiled. Running in headless mode." << std::endl;
     }
     Q_UNUSED ( bStartMinimized )       // avoid compiler warnings
     Q_UNUSED ( bShowComplRegConnList ) // avoid compiler warnings
@@ -529,14 +529,14 @@ int main ( int argc, char** argv )
     // the inifile is not supported for the headless server mode
     if ( !bIsClient && !bUseGUI && !strIniFileName.isEmpty() )
     {
-        qInfo() << "No initialization file support in headless server mode.";
+        cout << "No initialization file support in headless server mode." << std::endl;
     }
 
     // mute my own signal in personal mix is only supported for headless mode
     if ( bIsClient && bUseGUI && bMuteMeInPersonalMix )
     {
         bMuteMeInPersonalMix = false;
-        qInfo() << "Mute my own signal in my personal mix is only supported in headless mode.";
+        cout << "Mute my own signal in my personal mix is only supported in headless mode." << std::endl;
     }
 
     // per definition: if we are in "GUI" server mode and no central server
@@ -659,7 +659,7 @@ int main ( int argc, char** argv )
 #endif
             {
                 // only start application without using the GUI
-                qInfo() << GetVersionAndNameStr ( false );
+                cout << GetVersionAndNameStr ( false ).toStdString() << std::endl;
 
                 pApp->exec();
             }
@@ -718,7 +718,7 @@ int main ( int argc, char** argv )
 #endif
             {
                 // only start application without using the GUI
-                qInfo() << GetVersionAndNameStr ( false );
+                cout << GetVersionAndNameStr ( false ).toStdString() << std::endl;
 
                 // update serverlist
                 Server.UpdateServerList();
@@ -743,7 +743,7 @@ int main ( int argc, char** argv )
         else
 #endif
         {
-            qInfo() << generr.GetErrorText();
+            cerr << generr.GetErrorText().toStdString() << std::endl;
         }
     }
 
@@ -828,8 +828,8 @@ bool GetStringArgument ( int      argc,
     {
         if ( ++i >= argc )
         {
-            qInfo() << argv[0] << ": "
-                    << "'" << strLongOpt << "' needs a string argument";
+            cerr << argv[0] << ": ";
+            cerr << "'" << strLongOpt.toStdString() << "' needs a string argument" << std::endl;
             exit ( 1 );
         }
 
@@ -857,10 +857,9 @@ bool GetNumericArgument ( int     argc,
     {
         if ( ++i >= argc )
         {
-            qInfo() << argv[0] << ": "
-                    << "'" <<
-                    strLongOpt << "' needs a numeric argument between " <<
-                    rRangeStart << " and " << rRangeStop << endl;
+            cerr << argv[0] << ": ";
+            cerr << "'" << strLongOpt.toStdString() << "' needs a numeric argument between "
+                 << rRangeStart << " and " << rRangeStop << std::endl;
 
             exit ( 1 );
         }
@@ -871,10 +870,9 @@ bool GetNumericArgument ( int     argc,
              ( rValue < rRangeStart ) ||
              ( rValue > rRangeStop ) )
         {
-            qInfo() << argv[0] << ": "
-                    << "'" <<
-                    strLongOpt << "' needs a numeric argument between " <<
-                    rRangeStart << " and " << rRangeStop << endl;
+            cerr << argv[0] << ": ";
+            cerr << "'" << strLongOpt.toStdString() << "' needs a numeric argument between "
+                 << rRangeStart << " and " << rRangeStop << std::endl;
 
             exit ( 1 );
         }
