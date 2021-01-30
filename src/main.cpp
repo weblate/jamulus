@@ -47,8 +47,6 @@
 
 int main ( int argc, char** argv )
 {
-
-    QTextStream&   tsConsole = *( ( new ConsoleWriterFactory() )->get() );
     QString        strArgument;
     double         rDbleArgument;
     QList<QString> CommandLineOptions;
@@ -101,7 +99,7 @@ int main ( int argc, char** argv )
                                "--server" ) )
         {
             bIsClient = false;
-            tsConsole << "- server mode chosen" << endl;
+            qInfo() << "- server mode chosen";
             CommandLineOptions << "--server";
             continue;
         }
@@ -114,7 +112,7 @@ int main ( int argc, char** argv )
                                "--nogui" ) )
         {
             bUseGUI = false;
-            tsConsole << "- no GUI mode chosen" << endl;
+            qInfo() << "- no GUI mode chosen";
             CommandLineOptions << "--nogui";
             continue;
         }
@@ -128,7 +126,7 @@ int main ( int argc, char** argv )
         {
             // right now only the creative commons licence is supported
             eLicenceType = LT_CREATIVECOMMONS;
-            tsConsole << "- licence required" << endl;
+            qInfo() << "- licence required";
             CommandLineOptions << "--licence";
             continue;
         }
@@ -141,7 +139,7 @@ int main ( int argc, char** argv )
                                "--fastupdate" ) )
         {
             bUseDoubleSystemFrameSize = false; // 64 samples frame size
-            tsConsole << "- using " << SYSTEM_FRAME_SIZE_SAMPLES << " samples frame size mode" << endl;
+            qInfo() << "- using " << SYSTEM_FRAME_SIZE_SAMPLES << " samples frame size mode";
             CommandLineOptions << "--fastupdate";
             continue;
         }
@@ -154,15 +152,14 @@ int main ( int argc, char** argv )
                                "--multithreading" ) )
         {
             bUseMultithreading = true;
-            tsConsole << "- using multithreading" << endl;
+            qInfo() << "- using multithreading";
             CommandLineOptions << "--multithreading";
             continue;
         }
 
 
         // Maximum number of channels ------------------------------------------
-        if ( GetNumericArgument ( tsConsole,
-                                  argc,
+        if ( GetNumericArgument ( argc,
                                   argv,
                                   i,
                                   "-u",
@@ -172,10 +169,7 @@ int main ( int argc, char** argv )
                                   rDbleArgument ) )
         {
             iNumServerChannels = static_cast<int> ( rDbleArgument );
-
-            tsConsole << "- maximum number of channels: "
-                << iNumServerChannels << endl;
-
+            qInfo() << "- maximum number of channels: " << iNumServerChannels;
             CommandLineOptions << "--numchannels";
             continue;
         }
@@ -188,7 +182,7 @@ int main ( int argc, char** argv )
                                "--startminimized" ) )
         {
             bStartMinimized = true;
-            tsConsole << "- start minimized enabled" << endl;
+            qInfo() << "- start minimized enabled";
             CommandLineOptions << "--startminimized";
             continue;
         }
@@ -201,7 +195,7 @@ int main ( int argc, char** argv )
                                "--discononquit" ) )
         {
             bDisconnectAllClientsOnQuit = true;
-            tsConsole << "- disconnect all clients on quit" << endl;
+            qInfo() << "- disconnect all clients on quit";
             CommandLineOptions << "--discononquit";
             continue;
         }
@@ -214,7 +208,7 @@ int main ( int argc, char** argv )
                                "--nojackconnect" ) )
         {
             bNoAutoJackConnect = true;
-            tsConsole << "- disable auto Jack connections" << endl;
+            qInfo() << "- disable auto Jack connections";
             CommandLineOptions << "--nojackconnect";
             continue;
         }
@@ -227,7 +221,7 @@ int main ( int argc, char** argv )
                                "--notranslation" ) )
         {
             bUseTranslation = false;
-            tsConsole << "- translations disabled" << endl;
+            qInfo() << "- translations disabled";
             CommandLineOptions << "--notranslation";
             continue;
         }
@@ -243,7 +237,7 @@ int main ( int argc, char** argv )
                                "--showallservers" ) )
         {
             bShowComplRegConnList = true;
-            tsConsole << "- show all registered servers in server list" << endl;
+            qInfo() << "- show all registered servers in server list";
             CommandLineOptions << "--showallservers";
             continue;
         }
@@ -258,15 +252,14 @@ int main ( int argc, char** argv )
                                "--showanalyzerconsole" ) )
         {
             bShowAnalyzerConsole = true;
-            tsConsole << "- show analyzer console" << endl;
+            qInfo() << "- show analyzer console";
             CommandLineOptions << "--showanalyzerconsole";
             continue;
         }
 
 
         // Controller MIDI channel ---------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "--ctrlmidich", // no short form
@@ -274,15 +267,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strMIDISetup = strArgument;
-            tsConsole << "- MIDI controller settings: " << strMIDISetup << endl;
+            qInfo() << "- MIDI controller settings: " << strMIDISetup;
             CommandLineOptions << "--ctrlmidich";
             continue;
         }
 
 
         // Use logging ---------------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-l",
@@ -290,15 +282,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strLoggingFileName = strArgument;
-            tsConsole << "- logging file name: " << strLoggingFileName << endl;
+            qInfo() << "- logging file name: " << strLoggingFileName;
             CommandLineOptions << "--log";
             continue;
         }
 
 
         // Port number ---------------------------------------------------------
-        if ( GetNumericArgument ( tsConsole,
-                                  argc,
+        if ( GetNumericArgument ( argc,
                                   argv,
                                   i,
                                   "-p",
@@ -309,15 +300,14 @@ int main ( int argc, char** argv )
         {
             iPortNumber            = static_cast<quint16> ( rDbleArgument );
             bCustomPortNumberGiven = true;
-            tsConsole << "- selected port number: " << iPortNumber << endl;
+            qInfo() << "- selected port number: " << iPortNumber;
             CommandLineOptions << "--port";
             continue;
         }
 
 
         // HTML status file ----------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-m",
@@ -325,15 +315,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strHTMLStatusFileName = strArgument;
-            tsConsole << "- HTML status file name: " << strHTMLStatusFileName << endl;
+            qInfo() << "- HTML status file name: " << strHTMLStatusFileName;
             CommandLineOptions << "--htmlstatus";
             continue;
         }
 
 
         // Client Name ---------------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "--clientname", // no short form
@@ -341,15 +330,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strClientName = strArgument;
-            tsConsole << "- client name: " << strClientName << endl;
+            qInfo() << "- client name: " << strClientName;
             CommandLineOptions << "--clientname";
             continue;
         }
 
 
         // Recording directory -------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-R",
@@ -357,7 +345,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strRecordingDirName = strArgument;
-            tsConsole << "- recording directory name: " << strRecordingDirName << endl;
+            qInfo() << "- recording directory name: " << strRecordingDirName;
             CommandLineOptions << "--recording";
             continue;
         }
@@ -370,15 +358,14 @@ int main ( int argc, char** argv )
                                "--norecord" ) )
         {
             bDisableRecording = true;
-            tsConsole << "- recording will not be enabled" << endl;
+            qInfo() << "- recording will not be enabled";
             CommandLineOptions << "--norecord";
             continue;
         }
 
 
         // Central server ------------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-e",
@@ -386,15 +373,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strCentralServer = strArgument;
-            tsConsole << "- central server: " << strCentralServer << endl;
+            qInfo() << "- central server: " << strCentralServer;
             CommandLineOptions << "--centralserver";
             continue;
         }
 
 
         // Server info ---------------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-o",
@@ -402,15 +388,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strServerInfo = strArgument;
-            tsConsole << "- server info: " << strServerInfo << endl;
+            qInfo() << "- server info: " << strServerInfo;
             CommandLineOptions << "--serverinfo";
             continue;
         }
 
 
         // Server list filter --------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-f",
@@ -418,15 +403,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strServerListFilter = strArgument;
-            tsConsole << "- server list filter: " << strServerListFilter << endl;
+            qInfo() << "- server list filter: " << strServerListFilter;
             CommandLineOptions << "--listfilter";
             continue;
         }
 
 
         // Server welcome message ----------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-w",
@@ -434,15 +418,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strWelcomeMessage = strArgument;
-            tsConsole << "- welcome message: " << strWelcomeMessage << endl;
+            qInfo() << "- welcome message: " << strWelcomeMessage;
             CommandLineOptions << "--welcomemessage";
             continue;
         }
 
 
         // Initialization file -------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-i",
@@ -450,15 +433,14 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strIniFileName = strArgument;
-            tsConsole << "- initialization file name: " << strIniFileName << endl;
+            qInfo() << "- initialization file name: " << strIniFileName;
             CommandLineOptions << "--inifile";
             continue;
         }
 
 
         // Connect on startup --------------------------------------------------
-        if ( GetStringArgument ( tsConsole,
-                                 argc,
+        if ( GetStringArgument ( argc,
                                  argv,
                                  i,
                                  "-c",
@@ -466,7 +448,7 @@ int main ( int argc, char** argv )
                                  strArgument ) )
         {
             strConnOnStartupAddress = NetworkUtil::FixAddress ( strArgument );
-            tsConsole << "- connect on startup to address: " << strConnOnStartupAddress << endl;
+            qInfo() << "- connect on startup to address: " << strConnOnStartupAddress;
             CommandLineOptions << "--connect";
             continue;
         }
@@ -479,7 +461,7 @@ int main ( int argc, char** argv )
                                "--mutestream" ) )
         {
             bMuteStream = true;
-            tsConsole << "- mute stream activated" << endl;
+            qInfo() << "- mute stream activated";
             CommandLineOptions << "--mutestream";
             continue;
         }
@@ -492,7 +474,7 @@ int main ( int argc, char** argv )
                                "--mutemyown" ) )
         {
             bMuteMeInPersonalMix = true;
-            tsConsole << "- mute me in my personal mix" << endl;
+            qInfo() << "- mute me in my personal mix";
             CommandLineOptions << "--mutemyown";
             continue;
         }
@@ -502,7 +484,7 @@ int main ( int argc, char** argv )
         if ( ( !strcmp ( argv[i], "--version" ) ) ||
              ( !strcmp ( argv[i], "-v" ) ) )
         {
-            tsConsole << GetVersionAndNameStr ( false ) << endl;
+            qInfo() << GetVersionAndNameStr ( false );
             exit ( 1 );
         }
 
@@ -513,15 +495,15 @@ int main ( int argc, char** argv )
              ( !strcmp ( argv[i], "-?" ) ) )
         {
             const QString strHelp = UsageArguments ( argv );
-            tsConsole << strHelp << endl;
+            qInfo() << strHelp;
             exit ( 1 );
         }
 
 
         // Unknown option ------------------------------------------------------
-        tsConsole << argv[0] << ": ";
-        tsConsole << "Unknown option '" <<
-            argv[i] << "' -- use '--help' for help" << endl;
+        qInfo() << argv[0] << ": ";
+        qInfo() << "Unknown option '" <<
+            argv[i] << "' -- use '--help' for help";
 
 // clicking on the Mac application bundle, the actual application
 // is called with weird command line args -> do not exit on these
@@ -536,7 +518,7 @@ int main ( int argc, char** argv )
     if ( bUseGUI )
     {
         bUseGUI = false;
-        tsConsole << "No GUI support compiled. Running in headless mode." << endl;
+        qInfo() << "No GUI support compiled. Running in headless mode.";
     }
     Q_UNUSED ( bStartMinimized )       // avoid compiler warnings
     Q_UNUSED ( bShowComplRegConnList ) // avoid compiler warnings
@@ -547,14 +529,14 @@ int main ( int argc, char** argv )
     // the inifile is not supported for the headless server mode
     if ( !bIsClient && !bUseGUI && !strIniFileName.isEmpty() )
     {
-        tsConsole << "No initialization file support in headless server mode." << endl;
+        qInfo() << "No initialization file support in headless server mode.";
     }
 
     // mute my own signal in personal mix is only supported for headless mode
     if ( bIsClient && bUseGUI && bMuteMeInPersonalMix )
     {
         bMuteMeInPersonalMix = false;
-        tsConsole << "Mute my own signal in my personal mix is only supported in headless mode." << endl;
+        qInfo() << "Mute my own signal in my personal mix is only supported in headless mode.";
     }
 
     // per definition: if we are in "GUI" server mode and no central server
@@ -677,7 +659,7 @@ int main ( int argc, char** argv )
 #endif
             {
                 // only start application without using the GUI
-                tsConsole << GetVersionAndNameStr ( false ) << endl;
+                qInfo() << GetVersionAndNameStr ( false );
 
                 pApp->exec();
             }
@@ -736,7 +718,7 @@ int main ( int argc, char** argv )
 #endif
             {
                 // only start application without using the GUI
-                tsConsole << GetVersionAndNameStr ( false ) << endl;
+                qInfo() << GetVersionAndNameStr ( false );
 
                 // update serverlist
                 Server.UpdateServerList();
@@ -761,7 +743,7 @@ int main ( int argc, char** argv )
         else
 #endif
         {
-            tsConsole << generr.GetErrorText() << endl;
+            qInfo() << generr.GetErrorText();
         }
     }
 
@@ -834,21 +816,20 @@ bool GetFlagArgument ( char**  argv,
     }
 }
 
-bool GetStringArgument ( QTextStream& tsConsole,
-                         int          argc,
-                         char**       argv,
-                         int&         i,
-                         QString      strShortOpt,
-                         QString      strLongOpt,
-                         QString&     strArg )
+bool GetStringArgument ( int      argc,
+                         char**   argv,
+                         int&     i,
+                         QString  strShortOpt,
+                         QString  strLongOpt,
+                         QString& strArg )
 {
     if ( ( !strShortOpt.compare ( argv[i] ) ) ||
          ( !strLongOpt.compare ( argv[i] ) ) )
     {
         if ( ++i >= argc )
         {
-            tsConsole << argv[0] << ": ";
-            tsConsole << "'" << strLongOpt << "' needs a string argument" << endl;
+            qInfo() << argv[0] << ": "
+                    << "'" << strLongOpt << "' needs a string argument";
             exit ( 1 );
         }
 
@@ -862,26 +843,24 @@ bool GetStringArgument ( QTextStream& tsConsole,
     }
 }
 
-bool GetNumericArgument ( QTextStream& tsConsole,
-                          int          argc,
-                          char**       argv,
-                          int&         i,
-                          QString      strShortOpt,
-                          QString      strLongOpt,
-                          double       rRangeStart,
-                          double       rRangeStop,
-                          double&      rValue )
+bool GetNumericArgument ( int     argc,
+                          char**  argv,
+                          int&    i,
+                          QString strShortOpt,
+                          QString strLongOpt,
+                          double  rRangeStart,
+                          double  rRangeStop,
+                          double& rValue )
 {
     if ( ( !strShortOpt.compare ( argv[i] ) ) ||
          ( !strLongOpt.compare ( argv[i] ) ) )
     {
         if ( ++i >= argc )
         {
-            tsConsole << argv[0] << ": ";
-
-            tsConsole << "'" <<
-                strLongOpt << "' needs a numeric argument between " <<
-                rRangeStart << " and " << rRangeStop << endl;
+            qInfo() << argv[0] << ": "
+                    << "'" <<
+                    strLongOpt << "' needs a numeric argument between " <<
+                    rRangeStart << " and " << rRangeStop << endl;
 
             exit ( 1 );
         }
@@ -892,11 +871,10 @@ bool GetNumericArgument ( QTextStream& tsConsole,
              ( rValue < rRangeStart ) ||
              ( rValue > rRangeStop ) )
         {
-            tsConsole << argv[0] << ": ";
-
-            tsConsole << "'" <<
-                strLongOpt << "' needs a numeric argument between " <<
-                rRangeStart << " and " << rRangeStop << endl;
+            qInfo() << argv[0] << ": "
+                    << "'" <<
+                    strLongOpt << "' needs a numeric argument between " <<
+                    rRangeStart << " and " << rRangeStop << endl;
 
             exit ( 1 );
         }

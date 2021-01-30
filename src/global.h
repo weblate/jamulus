@@ -325,20 +325,18 @@ bool    GetFlagArgument ( char**  argv,
                           QString strShortOpt,
                           QString strLongOpt );
 
-bool    GetStringArgument ( QTextStream& tsConsole,
-                            int          argc,
-                            char**       argv,
-                            int&         i,
-                            QString      strShortOpt,
-                            QString      strLongOpt,
-                            QString&     strArg );
+bool    GetStringArgument ( int      argc,
+                            char**   argv,
+                            int&     i,
+                            QString  strShortOpt,
+                            QString  strLongOpt,
+                            QString& strArg );
 
-bool    GetNumericArgument ( QTextStream& tsConsole,
-                             int          argc,
-                             char**       argv,
-                             int&         i,
-                             QString      strShortOpt,
-                             QString      strLongOpt,
-                             double       rRangeStart,
-                             double       rRangeStop,
-                             double&      rValue);
+bool    GetNumericArgument ( int     argc,
+                             char**  argv,
+                             int&    i,
+                             QString strShortOpt,
+                             QString strLongOpt,
+                             double  rRangeStart,
+                             double  rRangeStop,
+                             double& rValue);

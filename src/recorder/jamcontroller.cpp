@@ -52,10 +52,7 @@ void CJamController::SetEnableRecording  ( bool bNewEnableRecording, bool isRunn
         // message only if the state appears to change
         if ( bEnableRecording != bNewEnableRecording )
         {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
-// TODO we should use the ConsoleWriterFactory() instead of qInfo()
             qInfo() << "Recording state" << ( bNewEnableRecording ? "enabled" : "disabled" );
-#endif
         }
 
         // note that this block executes regardless of whether
@@ -97,22 +94,16 @@ void CJamController::SetRecordingDir ( QString newRecordingDir,
         bRecorderInitialised = ( strRecorderErrMsg == QString::null );
         bEnableRecording = bRecorderInitialised && !bDisableRecording;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
-// TODO we should use the ConsoleWriterFactory() instead of qInfo()
         qInfo() << "Recording state" << ( bEnableRecording ? "enabled" : "disabled" );
-#endif
     }
     else
     {
         // This is the only time this is ever true - UI needs to handle it
-        strRecorderErrMsg = QString::null;
+        strRecorderErrMsg    = QString::null;
         bRecorderInitialised = false;
-        bEnableRecording = false;
+        bEnableRecording     = false;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
-// TODO we should use the ConsoleWriterFactory() instead of qInfo()
         qInfo() << "Recording state not initialised";
-#endif
     }
 
     if ( bRecorderInitialised )
@@ -124,7 +115,7 @@ void CJamController::SetRecordingDir ( QString newRecordingDir,
 
         pJamRecorder->moveToThread ( pthJamRecorder );
 
-        // QT signals
+        // Qt signals
         QObject::connect ( pthJamRecorder, &QThread::finished,
             pJamRecorder, &QObject::deleteLater );
 
